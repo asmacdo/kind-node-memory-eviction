@@ -1,18 +1,29 @@
-BLOWITUP="./blowitup/cmd/"
+CMDDIR="./cmd/"
 
-delete-cluster:
-	${BLOWITUP}delete-kind-cluster.sh
+# new-cluster:
+# 	${BLOWITUP}new-kind-cluster.sh
+#
+# up:
+# 	${BLOWITUP}up.sh
+#
+# down:
+# 	${BLOWITUP}down.sh
+#
+delete:
+	kubectl delete pod memory-overuse-pod
+	kubectl delete service memory-overuse-pod
 
-new-cluster:
-	${BLOWITUP}new-kind-cluster.sh
+dev:
+	docker build ./deploy -t quay.io/asmacdo/memory-inflation-image:0.0.0
+	docker push quay.io/asmacdo/memory-inflation-image:0.0.0
+	# make pod
+	
+pod:
+	kubectl create -f deploy/memory-inflation-pod.yaml
+	kubectl expose pod memory-overuse-pod
 
-up:
-	${BLOWITUP}up.sh
-
-down:
-	${BLOWITUP}down.sh
+forward:
+	kubectl port-forward memory-overuse-pod 3001:3001
 
 trigger:
-	${BLOWITUP}trigger.sh
-tabs:
-	${BLOWITUP}tabs.sh
+	curl localhost:3001/blowup

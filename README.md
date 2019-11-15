@@ -17,7 +17,7 @@ Combined, these scripts:
 
 ## Usage
 
-1. If necessary, remove existing kind cluster with `make delete-cluster`
+1. If necessary, remove existing kind cluster with `kind delete cluster`
 1. Spin up kind cluster with strict memory eviction policies. Set
    `BLOWUP_MINIMUM_MEMORY` environment variable to about 8Gi less than
    the total available memory, then run `make new-cluster`.
@@ -25,9 +25,6 @@ Combined, these scripts:
 1. Trigger memory expansion with `make trigger`.
 
 ## Commands
-
-`make delete-cluster`:
-  - WARNING!  REMOVES EXISTING CLUSTER
 
 `make new-cluster`:
   - Start a new cluster with 2 worker nodes
